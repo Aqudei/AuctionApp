@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Auction.Views
 {
     /// <summary>
-    /// Interaction logic for ActionMainView.xaml
+    /// Interaction logic for AuctionMainView.xaml
     /// </summary>
-    public partial class ActionMainView : UserControl
+    public partial class AuctionMainView : UserControl
     {
-        public ActionMainView()
+        public AuctionMainView()
         {
             InitializeComponent();
         }

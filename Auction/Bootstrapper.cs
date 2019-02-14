@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Auction.Models;
 using Auction.ViewModels;
+using Auction.ViewModels.AuctionDetail;
 using AutoMapper;
 using Caliburn.Micro;
 
@@ -26,13 +27,23 @@ namespace Auction
 
         protected override void Configure()
         {
-            Mapper.Initialize(cfg => { cfg.CreateMap<Account, RegistrationViewModel>().ReverseMap(); });
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Account, RegistrationViewModel>().ReverseMap();
+                cfg.CreateMap<Product, ProductsViewModel>().ReverseMap();
+            });
+
+
             _container.Instance(Mapper.Instance);
             _container.Singleton<IWindowManager, WindowManager>();
             _container.Singleton<IEventAggregator, EventAggregator>();
             _container.Singleton<LoginViewModel>();
             _container.Singleton<ShellViewModel>();
+
+            _container.PerRequest<AuctionDetailViewModel>();
             _container.PerRequest<RegistrationViewModel>();
+            _container.PerRequest<ProductsViewModel>();
+            _container.PerRequest<AuctionMainViewModel>();
         }
 
         protected override IEnumerable<object> GetAllInstances(Type service)

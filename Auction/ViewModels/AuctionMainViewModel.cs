@@ -6,15 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using Auction.Models;
+using Auction.ViewModels.AuctionDetail;
 using Caliburn.Micro;
 
 namespace Auction.ViewModels
 {
-    class AuctionMainViewModel : Screen
+    sealed class AuctionMainViewModel : Screen
     {
         private readonly BindableCollection<Product> _items = new BindableCollection<Product>();
         private Product _selectedItem;
         public ICollectionView Items { get; set; }
+
+        public AuctionDetailViewModel AuctionDetail { get; set; } = IoC.Get<AuctionDetailViewModel>();
 
         public Product SelectedItem
         {
@@ -25,6 +28,7 @@ namespace Auction.ViewModels
         public AuctionMainViewModel()
         {
             Items = CollectionViewSource.GetDefaultView(_items);
+            DisplayName = "Auction Main";
         }
     }
 }

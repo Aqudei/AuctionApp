@@ -1,10 +1,9 @@
 ﻿using System;
-using Auction.Models;
 using Caliburn.Micro;
 
-namespace Auction.ViewModels.BidHistory
+namespace Auction.ViewModels.AuctionDetail
 {
-    class BidHistoryItemViewModel : Screen
+    class BidItemViewModel : Screen
     {
         public string BidderName { get; set; }
         public double BidAmount { get; set; }

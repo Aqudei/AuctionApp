@@ -2,16 +2,15 @@
 using System.Threading.Tasks;
 using Auction.Events;
 using Auction.Persistence;
-using AutoMapper.QueryableExtensions;
 using Caliburn.Micro;
 
-namespace Auction.ViewModels.BidHistory
+namespace Auction.ViewModels.AuctionDetail
 {
-    class BidHistoryViewModel : Screen, IHandleWithTask<ProductSelectionChanged>
+    class AuctionDetailViewModel : Screen, IHandleWithTask<ProductSelectionChanged>
     {
-        private readonly BindableCollection<BidHistoryItemViewModel> _bidHistoryItemVms = new BindableCollection<BidHistoryItemViewModel>();
+        private readonly BindableCollection<BidItemViewModel> _bidHistoryItemVms = new BindableCollection<BidItemViewModel>();
 
-        public BidHistoryViewModel(IEventAggregator eventAggregator)
+        public AuctionDetailViewModel(IEventAggregator eventAggregator)
         {
             eventAggregator.Subscribe(this);
         }
@@ -30,7 +29,7 @@ namespace Auction.ViewModels.BidHistory
                     var bids = db.Bids.Where(bid => bid.ProductId == message.Product.Id);
                     foreach (var bid in bids)
                     {
-                        _bidHistoryItemVms.Add(new BidHistoryItemViewModel
+                        _bidHistoryItemVms.Add(new BidItemViewModel
                         {
                             BidAmount = bid.BidAmount,
                             BidDate = bid.BidDate,

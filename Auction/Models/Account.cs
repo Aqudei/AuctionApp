@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,12 +16,14 @@ namespace Auction.Models
 
     class Account : EntityBase
     {
+        private string _password;
+
         public AccountType AccountType { get; set; }
 
-        private string _password;
+        [StringLength(32)]
         public string UserName { get; set; }
 
-        public string Password => _password;
+        public string Password { get => _password; set => _password = value; }
 
         public void SetPassword(string password)
         {

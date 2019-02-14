@@ -32,6 +32,8 @@ namespace Auction.ViewModels
                 _selectedItem = value;
                 if (value == null)
                 {
+                    Id = Guid.Empty;
+
                     ClearFields();
                     return;
                 }
@@ -49,6 +51,8 @@ namespace Auction.ViewModels
             {
                 _items.AddRange(db.Set<T>().ToList());
             }
+
+            _eventAggregator.Subscribe(this);
         }
 
         public void NewItem()

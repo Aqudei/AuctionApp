@@ -50,6 +50,9 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Mvvm.v17.2, Version=17.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -62,6 +65,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
@@ -87,13 +91,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\ActionMainView.xaml">
+    <Page Include="Views\AuctionDetail\AuctionDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AuctionMainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\RegistrationView.xaml">
       <SubType>Designer</SubType>
@@ -114,6 +126,14 @@
     <Compile Include="Migrations\201902140244058_Initial.Designer.cs">
       <DependentUpon>201902140244058_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902140410472_RePassword.cs" />
+    <Compile Include="Migrations\201902140410472_RePassword.Designer.cs">
+      <DependentUpon>201902140410472_RePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902140411354_RePassword1.cs" />
+    <Compile Include="Migrations\201902140411354_RePassword1.Designer.cs">
+      <DependentUpon>201902140411354_RePassword1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Bid.cs" />
@@ -121,17 +141,24 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Persistence\AuctionContext.cs" />
     <Compile Include="ViewModels\AuctionMainViewModel.cs" />
-    <Compile Include="ViewModels\BidHistory\BidHistoryItemViewModel.cs" />
-    <Compile Include="ViewModels\BidHistory\BidHistoryViewModel.cs" />
+    <Compile Include="ViewModels\AuctionDetail\BidItemViewModel.cs" />
+    <Compile Include="ViewModels\AuctionDetail\AuctionDetailViewModel.cs" />
     <Compile Include="ViewModels\CrudViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ProductsViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="Views\ActionMainView.xaml.cs">
-      <DependentUpon>ActionMainView.xaml</DependentUpon>
+    <Compile Include="Views\AuctionDetail\AuctionDetailView.xaml.cs">
+      <DependentUpon>AuctionDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuctionMainView.xaml.cs">
+      <DependentUpon>AuctionMainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductsView.xaml.cs">
+      <DependentUpon>ProductsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegistrationView.xaml.cs">
       <DependentUpon>RegistrationView.xaml</DependentUpon>
@@ -158,6 +185,13 @@
     <EmbeddedResource Include="Migrations\201902140244058_Initial.resx">
       <DependentUpon>201902140244058_Initial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902140410472_RePassword.resx">
+      <DependentUpon>201902140410472_RePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902140411354_RePassword1.resx">
+      <DependentUpon>201902140411354_RePassword1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

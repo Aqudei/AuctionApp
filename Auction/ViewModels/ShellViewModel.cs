@@ -36,10 +36,11 @@ namespace Auction.ViewModels
 
                 if (loginVm.Account.AccountType == AccountType.Normal)
                 {
-
+                    ActivateItem(IoC.Get<AuctionMainViewModel>()); 
                 }
                 else
                 {
+                    Items.Add(IoC.Get<ProductsViewModel>());
                     ActivateItem(IoC.Get<RegistrationViewModel>());
                 }
             });
