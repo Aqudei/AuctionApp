@@ -12,5 +12,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label>Auction/Bidding Info</Label>
+        <ItemsControl Grid.Row="1" x:Name="BidItems"/>
     </Grid>
 </UserControl>

@@ -95,6 +95,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AuctionDetail\BidItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AuctionMainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,6 +154,9 @@
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\AuctionDetail\AuctionDetailView.xaml.cs">
       <DependentUpon>AuctionDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuctionDetail\BidItemView.xaml.cs">
+      <DependentUpon>BidItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AuctionMainView.xaml.cs">
       <DependentUpon>AuctionMainView.xaml</DependentUpon>

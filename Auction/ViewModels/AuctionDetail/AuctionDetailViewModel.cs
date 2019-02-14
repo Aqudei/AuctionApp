@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using Auction.Events;
 using Auction.Persistence;
 using Caliburn.Micro;
@@ -8,16 +10,19 @@ namespace Auction.ViewModels.AuctionDetail
 {
     class AuctionDetailViewModel : Screen, IHandleWithTask<ProductSelectionChanged>
     {
-        private readonly BindableCollection<BidItemViewModel> _bidHistoryItemVms = new BindableCollection<BidItemViewModel>();
+        private readonly BindableCollection<BidItemViewModel> _bidItemsViewModels = new BindableCollection<BidItemViewModel>();
+
+        public ICollectionView BidItems { get; set; }
 
         public AuctionDetailViewModel(IEventAggregator eventAggregator)
         {
             eventAggregator.Subscribe(this);
+            BidItems = CollectionViewSource.GetDefaultView(_bidItemsViewModels);
         }
 
         public Task Handle(ProductSelectionChanged message)
         {
-            _bidHistoryItemVms.Clear();
+            _bidItemsViewModels.Clear();
 
             return Task.Run(() =>
             {
@@ -26,10 +31,10 @@ namespace Auction.ViewModels.AuctionDetail
 
                 using (var db = new AuctionContext())
                 {
-                    var bids = db.Bids.Where(bid => bid.ProductId == message.Product.Id);
+                    var bids = db.Bids.Where(bid => bid.ProductId == message.Product.Id).OrderByDescending(bid => bid.BidDate);
                     foreach (var bid in bids)
                     {
-                        _bidHistoryItemVms.Add(new BidItemViewModel
+                        _bidItemsViewModels.Add(new BidItemViewModel
                         {
                             BidAmount = bid.BidAmount,
                             BidDate = bid.BidDate,
