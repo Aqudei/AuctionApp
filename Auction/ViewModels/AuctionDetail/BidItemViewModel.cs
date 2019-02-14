@@ -8,5 +8,6 @@ namespace Auction.ViewModels.AuctionDetail
         public string BidderName { get; set; }
         public double BidAmount { get; set; }
         public DateTime BidDate { get; set; }
+
     }
 }

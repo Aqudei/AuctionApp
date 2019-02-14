@@ -31,7 +31,8 @@ namespace Auction.ViewModels.AuctionDetail
 
                 using (var db = new AuctionContext())
                 {
-                    var bids = db.Bids.Where(bid => bid.ProductId == message.Product.Id).OrderByDescending(bid => bid.BidDate);
+                    var bids = db.Bids.Where(bid => bid.ProductId == message.Product.Id).OrderByDescending(bid => bid.BidDate).ToList();
+
                     foreach (var bid in bids)
                     {
                         _bidItemsViewModels.Add(new BidItemViewModel

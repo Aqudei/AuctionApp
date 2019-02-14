@@ -4,24 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Auction.Views.AuctionDetail"
-             mc:Ignorable="d" 
-             d:DesignHeight="106.478" Width="164.274">
+             mc:Ignorable="d" d:DesignHeight="106.478">
     <Grid>
         <StackPanel Orientation="Vertical" Margin="4">
             <StackPanel Orientation="Horizontal" Margin="2">
                 <Label Content="User: " VerticalAlignment="Center" Width="80"/>
-                <TextBlock TextWrapping="Wrap" Text="{Binding UserName}" VerticalAlignment="Center" FontWeight="Bold"/>
+                <TextBlock TextWrapping="Wrap" Text="{Binding BidderName}" VerticalAlignment="Center" FontWeight="Bold"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="2">
-                <Label Content="Bid On: " VerticalAlignment="Center" Width="80"/>
+                <Label Content="Date Of Bid: " VerticalAlignment="Center" Width="80"/>
                 <TextBlock TextWrapping="Wrap" Text="{Binding BidDate}" VerticalAlignment="Center" FontWeight="Bold"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="2">
                 <Label Content="Bid Amount: " VerticalAlignment="Center" Width="80"/>
-                <TextBlock TextWrapping="Wrap" Text="{Binding BidAmount}" 
+                <TextBlock TextWrapping="Wrap" Text="{Binding BidAmount, StringFormat=\{0:C\}}" 
                            VerticalAlignment="Center" FontWeight="Bold"/>
             </StackPanel>
-
+            <Border Width="16"
+                    BorderBrush="Black" 
+                    BorderThickness="1,1,1,1" />
         </StackPanel>
     </Grid>
 </UserControl>

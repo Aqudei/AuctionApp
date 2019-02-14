@@ -11,5 +11,6 @@ namespace Auction.Models
         public string Title { get; set; }
         public double InitialPrice { get; set; }
         public double LastBidAmount { get; set; }
+        public bool Close { get; set; } = false;
     }
 }

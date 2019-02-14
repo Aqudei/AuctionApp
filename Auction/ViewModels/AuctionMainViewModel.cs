@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -11,6 +12,8 @@ using Auction.Events;
 using Auction.Models;
 using Auction.Persistence;
 using Auction.ViewModels.AuctionDetail;
+using Auction.ViewModels.Dialogs;
+using Auction.Views.Dialogs;
 using Caliburn.Micro;
 
 namespace Auction.ViewModels
@@ -18,6 +21,8 @@ namespace Auction.ViewModels
     sealed class AuctionMainViewModel : Screen
     {
         private readonly IEventAggregator _eventAggregator;
+        private readonly IWindowManager _windowManager;
+        private readonly LoginViewModel _loginViewModel;
         private readonly BindableCollection<Product> _items = new BindableCollection<Product>();
         private Product _selectedItem;
         public ICollectionView Items { get; set; }
@@ -26,15 +31,50 @@ namespace Auction.ViewModels
 
         private readonly BackgroundWorker _backgroundWorker = new BackgroundWorker();
 
+
+        public void SubmitBid(Product product)
+        {
+            var vm = new PlaceBidViewModel
+            {
+                BidAmount = product.LastBidAmount,
+                Title = product.Title
+            };
+            _windowManager.ShowDialog(vm);
+
+            if (vm.IsCancelled)
+                return;
+
+            using (var db = new AuctionContext())
+            {
+                product.LastBidAmount = vm.BidAmount;
+                db.Entry(product).State = EntityState.Modified;
+                db.Bids.Add(new Bid
+                {
+                    AccountId = _loginViewModel.Account.Id,
+                    BidAmount = vm.BidAmount,
+                    ProductId = product.Id
+                });
+                db.SaveChanges();
+            }
+        }
+
+        public void CloseBidding(Product product)
+        {
+
+        }
+
         public Product SelectedItem
         {
             get => _selectedItem;
             set => Set(ref _selectedItem, value);
         }
 
-        public AuctionMainViewModel(IEventAggregator eventAggregator)
+        public AuctionMainViewModel(IEventAggregator eventAggregator,
+            IWindowManager windowManager, LoginViewModel loginViewModel)
         {
             _eventAggregator = eventAggregator;
+            _windowManager = windowManager;
+            _loginViewModel = loginViewModel;
             Items = CollectionViewSource.GetDefaultView(_items);
             DisplayName = "Auction Main";
 
