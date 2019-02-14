@@ -26,14 +26,19 @@ namespace Auction.Views
             Loaded += (sender, args) =>
             {
                 Password.PasswordChanged += PasswordOnPasswordChanged;
-                PasswordCopy.PasswordChanged += PasswordOnPasswordChanged;
+                PasswordCopy.PasswordChanged += PasswordCopy_PasswordChanged;
             };
+        }
+
+        private void PasswordCopy_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+          
+            if (DataContext is RegistrationViewModel vm) vm.PasswordCopy = PasswordCopy.Password;
         }
 
         private void PasswordOnPasswordChanged(object sender, RoutedEventArgs e)
         {
-            var pwdBox = sender as PasswordBox;
-            if (DataContext is RegistrationViewModel vm) vm.Password = pwdBox.Password;
+            if (DataContext is RegistrationViewModel vm) vm.Password = Password.Password;
         }
     }
 }

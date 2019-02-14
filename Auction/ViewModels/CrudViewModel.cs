@@ -21,7 +21,24 @@ namespace Auction.ViewModels
         public Guid Id { get; set; }
 
         private readonly BindableCollection<T> _items = new BindableCollection<T>();
+        private T _selectedItem;
         public ICollectionView Items { get; set; }
+
+        public T SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                _selectedItem = value;
+                if (value == null)
+                {
+                    ClearFields();
+                    return;
+                }
+
+                _mapper.Map(value, this);
+            }
+        }
 
         protected CrudViewModel(IMapper mapper, IEventAggregator eventAggregator)
         {
@@ -59,10 +76,14 @@ namespace Auction.ViewModels
 
         public async Task Save()
         {
+            if (!PreSaveCheck())
+                return;
+
             var item = _mapper.Map<T>(this);
             if (item.Id == Guid.Empty)
             {
                 item.NewId();
+                PreSaveAction(item);
                 using (var db = new AuctionContext())
                 {
                     db.Set<T>().Add(item);
@@ -80,6 +101,10 @@ namespace Auction.ViewModels
                 }
             }
         }
+
+        protected abstract void PreSaveAction(T item);
+
+        protected abstract bool PreSaveCheck();
 
         protected abstract void ClearFields();
 

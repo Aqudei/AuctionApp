@@ -10,11 +10,12 @@ using Caliburn.Micro;
 
 namespace Auction.ViewModels
 {
-    class RegistrationViewModel : CrudViewModel<Account>
+    sealed class RegistrationViewModel : CrudViewModel<Account>
     {
         private string _userName;
         private string _password;
         private string _passwordCopy;
+        private AccountType _accountType;
 
         public string UserName
         {
@@ -28,6 +29,9 @@ namespace Auction.ViewModels
             set => Set(ref _password, value);
         }
 
+        public BindableCollection<AccountType> AccountTypes { get; set; } = new BindableCollection<AccountType>();
+        public AccountType AccountType { get => _accountType; set => Set(ref _accountType, value); }
+
         public string PasswordCopy
         {
             get => _passwordCopy;
@@ -36,6 +40,19 @@ namespace Auction.ViewModels
 
         public RegistrationViewModel(IMapper mapper, IEventAggregator eventAggregator) : base(mapper, eventAggregator)
         {
+            DisplayName = "Registration";
+
+            AccountTypes.AddRange(Enum.GetValues(typeof(AccountType)).OfType<AccountType>());
+        }
+
+        protected override void PreSaveAction(Account item)
+        {
+            item.SetPassword(Password);
+        }
+
+        protected override bool PreSaveCheck()
+        {
+            return Password == PasswordCopy;
         }
 
         protected override void ClearFields()

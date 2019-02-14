@@ -18,7 +18,7 @@ namespace Auction.Views
     /// <summary>
     /// Interaction logic for LoginView.xaml
     /// </summary>
-    public partial class LoginView : Window
+    public partial class LoginView
     {
         public LoginView()
         {

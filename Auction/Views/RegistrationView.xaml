@@ -4,17 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Auction.Views"
-        mc:Ignorable="d" d:DesignWidth="565.6" d:DesignHeight="296" >
+        mc:Ignorable="d" d:DesignHeight="427.676" Width="884.747" >
     <Grid>
-        <Label Content="UserName:" HorizontalAlignment="Left" Margin="10,10.2,0,234.6" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="UserName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="388" Margin="139,12,0,235.4" VerticalContentAlignment="Center"/>
-        <Label Content="Password" HorizontalAlignment="Left" Margin="10,38.2,0,206.6" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-        <PasswordBox  x:Name="Password" HorizontalAlignment="Left" Height="23"  VerticalAlignment="Center" Width="388" Margin="139,40,0,207.4" VerticalContentAlignment="Center"/>
-        <Label Content="Re-enter Password:" HorizontalAlignment="Left" Margin="10,66.2,0,178.6" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-        <PasswordBox x:Name="PasswordCopy" HorizontalAlignment="Left" Height="23" VerticalAlignment="Center" Width="388" Margin="139,68,0,179.4" VerticalContentAlignment="Center"/>
-        <Button x:Name="Save" Content="Save" HorizontalAlignment="Left" Margin="450,113,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="Close" Content="Done" HorizontalAlignment="Left" Margin="345,113,0,0" VerticalAlignment="Top" Width="75"/>
-        <DataGrid x:Name="Items" HorizontalAlignment="Left" Height="119" Margin="10,171,0,0" VerticalAlignment="Top" Width="515"/>
-        <Label Content="Accounts" HorizontalAlignment="Left" Margin="10,110,0,0" VerticalAlignment="Top"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <Label Content="UserName:" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="120"/>
+                    <TextBox x:Name="UserName" TextWrapping="Wrap" Text="TextBox" VerticalContentAlignment="Center" Width="300"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <Label Content="Password" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="120"/>
+                    <PasswordBox  x:Name="Password" VerticalContentAlignment="Center" Width="300"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <Label Content="Re-enter Password:" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="120"/>
+                    <PasswordBox x:Name="PasswordCopy" VerticalContentAlignment="Center" Width="300"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4" HorizontalAlignment="Left">
+                    <Button x:Name="Close" Content="Done" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="4"/>
+                    <Button x:Name="Save" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="4"/>
+                    <Button x:Name="NewItem" Content="New Item" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="4"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Column="1">
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <Label Content="Account Type:" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" Width="120"/>
+                    <ComboBox x:Name="AccountTypes" 
+                              SelectedItem="{Binding AccountType}"
+                              VerticalContentAlignment="Center" Width="300"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Accounts" Margin="4"/>
+            <DataGrid x:Name="Items" 
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      Grid.Row="1" Margin="4"/>
+        </Grid>
     </Grid>
 </UserControl>

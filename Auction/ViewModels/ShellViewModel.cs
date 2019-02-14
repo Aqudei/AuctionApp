@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Auction.Models;
 using Caliburn.Micro;
 
 namespace Auction.ViewModels
 {
-    class ShellViewModel : Conductor<object>
+    class ShellViewModel : Conductor<object>.Collection.OneActive
     {
         private readonly IWindowManager _windowManager;
 
@@ -16,23 +17,32 @@ namespace Auction.ViewModels
         {
             _windowManager = windowManager;
         }
+
         protected override void OnViewReady(object view)
         {
-            var loginVm = IoC.Get<LoginViewModel>();
-            while (loginVm.Account == null)
+            Execute.OnUIThreadAsync(() =>
             {
-                _windowManager.ShowDialog(loginVm);
-            }
+                var loginVm = IoC.Get<LoginViewModel>();
+                while (loginVm.Account == null && !loginVm.Quitting)
+                {
+                    _windowManager.ShowDialog(loginVm);
+                }
 
-            if (loginVm.Account.AccountType == AccountType.Normal)
-            {
+                if (loginVm.Quitting)
+                {
+                    Application.Current.Shutdown();
+                    return;
+                }
 
-            }
-            else
-            {
-                ActivateItem(IoC.Get<RegistrationViewModel>());
-                
-            }
+                if (loginVm.Account.AccountType == AccountType.Normal)
+                {
+
+                }
+                else
+                {
+                    ActivateItem(IoC.Get<RegistrationViewModel>());
+                }
+            });
         }
     }
 }
